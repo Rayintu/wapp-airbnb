@@ -4,7 +4,7 @@ const initialState = {
     height: "92.5vh",
     latitude: 52.379189,
     longitude: 4.899431,
-    zoom: 8
+    zoom: 11
   },
   selectedLocation: null,
   listingLocations: null

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using inside_airbnb_ricky_broers.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace inside_airbnb_ricky_broers.Controllers
 {
@@ -30,6 +31,13 @@ namespace inside_airbnb_ricky_broers.Controllers
             }).Take(1000);
 
             return listingLocations;
+        }
+
+        [HttpGet("totalListings")]
+        public int GetTotalListings()
+        {
+            var totalListings = _dbContext.Listings.Select(listing => new ListingLocation()).Count();
+            return totalListings;
         }
     }
 }
