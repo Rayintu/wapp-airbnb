@@ -1,6 +1,8 @@
+using inside_airbnb_ricky_broers.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,13 +22,23 @@ namespace inside_airbnb_ricky_broers
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var miniProfilerConnectionString = Configuration.GetConnectionString("MiniProfilerDatabase");
-            services.AddMiniProfiler(options =>
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
-                options.PopupRenderPosition = StackExchange.Profiling.RenderPosition.BottomLeft;
-                options.PopupShowTimeWithChildren = true;
-                options.Storage = new SqlServerStorage(miniProfilerConnectionString);
-            }).AddEntityFramework();
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
+
+            services.AddDbContext<AirBNBDatabaseContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+//            var miniProfilerConnectionString = Configuration.GetConnectionString("MiniProfilerDatabase");
+//            services.AddMiniProfiler(options =>
+//            {
+//                options.PopupRenderPosition = StackExchange.Profiling.RenderPosition.BottomLeft;
+//                options.PopupShowTimeWithChildren = true;
+//                options.Storage = new SqlServerStorage(miniProfilerConnectionString);
+//            }).AddEntityFramework();
 
             services.AddControllersWithViews();
 

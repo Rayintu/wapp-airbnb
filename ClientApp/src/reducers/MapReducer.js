@@ -6,13 +6,16 @@ const initialState = {
     longitude: 4.899431,
     zoom: 8
   },
-  selectedLocation: null
+  selectedLocation: null,
+  listingLocations: null
 }
 
 export function MapReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case 'changeViewportAction':
-      return {...state, viewport: action.value}
+      return { ...state, viewport: action.value }
+    case 'setListingLocationsAction':
+      return { ...state, listingLocations: action.value }
     default:
       return state;
   }
