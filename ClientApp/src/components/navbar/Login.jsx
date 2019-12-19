@@ -2,19 +2,23 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-const LoginUI = () => {
+import { getAccountTokenDispatcher } from '../../actions/AccountAction'
+
+const LoginUI = props => {
   return ( 
-    <button className="navbar__login__button">Login</button>
+    <button onClick={props.getAccountTokenDispatcher} className="navbar__login__button">Login</button>
    );
 }
  
 function mapDispatchToProps(dispatch) {
   return {
+    getAccountTokenDispatcher: () => dispatch(getAccountTokenDispatcher())
   };
 }
 
 function mapStateToProps(state) {
   return {
+    
   };
 }
 
