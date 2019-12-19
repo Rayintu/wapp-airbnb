@@ -6,6 +6,7 @@ using inside_airbnb_ricky_broers.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 
 namespace inside_airbnb_ricky_broers.Controllers
 {
@@ -31,6 +32,17 @@ namespace inside_airbnb_ricky_broers.Controllers
             }).Take(1000);
 
             return listingLocations;
+        }
+        
+        [HttpGet("listingLocationsList")]
+        public async Task<List<ListingLocation>> IndexList()
+        {
+            return await _dbContext.Listings.Select(listing => new ListingLocation
+            {
+                Id = listing.Id,
+                Latitude = listing.Latitude,
+                Longitude = listing.Longitude
+            }).ToListAsync();
         }
 
         [HttpGet("totalListings")]

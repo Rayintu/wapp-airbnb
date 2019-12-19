@@ -26,7 +26,7 @@ class InfobarHeaderUI extends Component {
           </p>
           <div className="infobar__header__content--side-by-side">
             <select className="infobar__header__dropdown">
-              <option>bruh</option>
+              <option>filters</option>
             </select>
             <div>              
               <div className="infobar__header__listings--filtered">{this.props.totalListings != undefined ? this.props.totalListings : null}</div>

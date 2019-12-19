@@ -15,6 +15,7 @@ export function setListingLocationsAction(listingLocations) {
 export function totalListingsDispatcher() {
   return async (dispatch) => {
     const response = await fetch('https://localhost:5001/listings/listingLocations');
+//    const response = await fetch('https://localhost:5001/listings/listingLocationsList');
     const body = await response.json();
     if(response.ok) dispatch(setListingLocationsAction(body))
   }
