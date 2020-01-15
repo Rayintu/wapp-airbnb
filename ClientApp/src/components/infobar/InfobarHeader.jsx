@@ -25,9 +25,6 @@ class InfobarHeaderUI extends Component {
             Amsterdam
           </p>
           <div className="infobar__header__content--side-by-side">
-            <select className="infobar__header__dropdown">
-              <option>filters</option>
-            </select>
             <div>              
               <div className="infobar__header__listings--filtered">{this.props.totalListings != undefined ? this.props.totalListings : null}</div>
               <div className="infobar__header__listings--total">{this.props.totalListings != undefined ? `out of ${this.props.totalListings} listings` : null}</div>
