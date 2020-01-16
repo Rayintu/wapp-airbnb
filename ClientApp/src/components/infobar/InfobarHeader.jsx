@@ -26,7 +26,7 @@ class InfobarHeaderUI extends Component {
           </p>
           <div className="infobar__header__content--side-by-side">
             <div>              
-              <div className="infobar__header__listings--filtered">{this.props.totalListings != undefined ? this.props.totalListings : null}</div>
+              <div className="infobar__header__listings--filtered">{this.props.listingLocations != undefined ? this.props.listingLocations.features.length : null}</div>
               <div className="infobar__header__listings--total">{this.props.totalListings != undefined ? `out of ${this.props.totalListings} listings` : null}</div>
             </div>
           </div>
@@ -44,7 +44,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    totalListings: state.infobarReducer.totalListings
+    totalListings: state.infobarReducer.totalListings,
+    listingLocations: state.mapReducer.listingLocations
   };
 }
 

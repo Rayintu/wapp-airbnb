@@ -18,6 +18,8 @@ export function MapReducer(state = initialState, action) {
       return { ...state, listingLocations: action.value }
     case 'setLocationDetailsAction':
       return { ...state, selectedLocation: action.value}
+    case 'setFilteredLocationsAction':
+      return {...state, listingLocations: action.value }
     default:
       return state;
   }

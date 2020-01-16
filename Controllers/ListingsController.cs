@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -84,6 +85,42 @@ namespace inside_airbnb_ricky_broers.Controllers
                     ReviewScoresRating = listing.ReviewScoresRating
                 }).ToListAsync();
 
+        }
+
+        [HttpGet("filtered")]
+        public async Task<string> getFilteredLocations([FromQuery] int price, [FromQuery] string neighbourhood, [FromQuery] int rating)
+        {
+            List<ListingLocation> locations;
+
+            if (neighbourhood == "nofilter")
+            {
+                locations = await _dbContext.Listings.Where(listing => listing.ReviewScoresRating >= rating).Select(listing => new ListingLocation
+                {
+                    Id = listing.Id,
+                    Latitude = listing.Latitude,
+                    Longitude = listing.Longitude
+                }).ToListAsync();
+            }
+            else
+            {
+                locations = await _dbContext.Listings.Where(listing => listing.NeighbourhoodCleansed == neighbourhood && listing.ReviewScoresRating >= rating).Select(listing => new ListingLocation
+                {
+                    Id = listing.Id,
+                    Latitude = listing.Latitude,
+                    Longitude = listing.Longitude
+                }).ToListAsync();
+            }
+
+            
+
+            var geoJson = convertGeoJson(locations);
+            return geoJson;
+        }
+
+        [HttpGet("neighbourhoods")]
+        public async Task<List<string>> getNeighbourhoods()
+        {
+            return await _dbContext.Neighbourhoods.Select(item => item.Neighbourhood).Distinct().ToListAsync();
         }
 
         [HttpGet("listingLocationsList")]
